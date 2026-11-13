@@ -1,0 +1,15 @@
+# saida do capturador: dado real da pessoa, nunca no repositorio
+*.sqlite
+*.pfx
+*.p12
+*.xml
+*.csv
+capturador.json
+capturador.log
+.trava
+pendentes/
+
+# ambiente Python
+.venv/
+__pycache__/
+.pytest_cache/

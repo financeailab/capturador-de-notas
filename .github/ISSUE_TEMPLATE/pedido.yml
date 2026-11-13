@@ -1,0 +1,11 @@
+name: Pedido de melhoria
+description: Sugerir uma melhoria no capturador
+labels: ["pedido"]
+body:
+  - type: textarea
+    id: pedido
+    attributes:
+      label: O que você gostaria que o capturador fizesse
+      description: Sem dado real no exemplo (nota, CNPJ, CPF, nome de fornecedor ou cliente)
+    validations:
+      required: true

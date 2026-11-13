@@ -1,0 +1,13 @@
+[project]
+name = "capturador-de-notas"
+version = "0.1.1"
+description = "Baixa NFS-e emitidas e recebidas do ADN (Sistema Nacional NFS-e) para uma pasta local com base SQLite"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+dependencies = ["pydantic>=2.6,<3", "defusedxml>=0.7.1", "cryptography>=42", "keyring>=25", "pycparser>=3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

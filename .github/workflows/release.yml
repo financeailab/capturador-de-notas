@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  # testes nos 3 sistemas, os 2 cheques e o gitleaks, no mesmo commit da tag; vermelho aqui, nada e publicado
+  ci:
+    uses: ./.github/workflows/ci.yml
+
+  release:
+    needs: ci
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: montar o zip (motor, README, LICENSE e NOTICE; sem tests nem ferramentas)
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          import zipfile
+
+          nome = "capturador-de-notas"
+          entram = [pathlib.Path(p) for p in ("capturador.py", "pyproject.toml", "README.md", "LICENSE", "NOTICE")]
+          entram += sorted(p for p in pathlib.Path("engine").rglob("*") if p.is_file() and "__pycache__" not in p.parts)
+          pathlib.Path("dist").mkdir(exist_ok=True)
+          destino = pathlib.Path("dist") / f"{nome}.zip"
+          with zipfile.ZipFile(destino, "w", zipfile.ZIP_DEFLATED) as zf:
+              for arquivo in entram:
+                  zf.write(arquivo, arcname=str(pathlib.Path(nome) / arquivo))
+          print(f"{destino}: {destino.stat().st_size} bytes, {len(entram)} arquivos")
+          PY
+      - name: criar a release com o zip (tag repetida falha, sem --clobber)
+        run: gh release create "$GITHUB_REF_NAME" dist/capturador-de-notas.zip
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,0 +1,5 @@
+capturador-de-notas, Finance AI Lab.
+Copyright 2026 Douglas Ferreira.
+
+O parser de NFS-e (engine/model.py, engine/normalizacao.py e engine/parsers/) é cópia do
+Leitor de Notas Fiscais, do mesmo autor e sob a mesma licença.

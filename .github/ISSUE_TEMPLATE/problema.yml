@@ -1,0 +1,31 @@
+name: Reportar um problema
+description: Algo não funcionou como esperado no capturador
+labels: ["problema"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Não anexe XML de nota, a base, o CSV, o log, o certificado nem a senha.** A saída do
+        terminal pode ser colada: ela só traz contagens e o CNPJ mascarado.
+  - type: input
+    id: sistema
+    attributes:
+      label: Sistema e Python
+      description: Sistema operacional e a versão do Python (python --version)
+      placeholder: "Ex.: Windows 11, Python 3.12.10"
+    validations:
+      required: true
+  - type: input
+    id: comando
+    attributes:
+      label: Comando e código de saída
+      placeholder: "Ex.: baixar, saiu com 1"
+    validations:
+      required: true
+  - type: textarea
+    id: o-que-aconteceu
+    attributes:
+      label: O que aconteceu
+      description: O que você esperava e o que aconteceu de fato. Pode colar a saída do terminal.
+    validations:
+      required: true
